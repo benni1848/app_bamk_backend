@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const app = express();
 
 
-
 const PORT = 3000;
  
 app.listen(PORT, () => {
@@ -13,5 +12,9 @@ app.listen(PORT, () => {
 });
 
 app.get("/", (req, res) => {
-  res.status(200).send("kev der king!");
+  res.status(200).send("Login Page");
+});
+
+app.get("/registration", (req, res) => {
+  res.status(200).send("Registration Page");
 });
