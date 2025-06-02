@@ -11,10 +11,10 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.get("/", (req, res) => {
+app.get("/filme", (req, res) => {
   res.status(200).send("Login Page");
 });
 
-app.get("/registration", (req, res) => {
+app.get("/filme", (req, res) => {
   res.status(200).send("Registration Page");
 });
