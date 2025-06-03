@@ -10,9 +10,10 @@ const gameSchema = new mongoose.Schema({
     platforms: { type: [String], required: true },
     releaseDate: { type: Date, required: true },
     rating: { type: Number, min: 0, max: 10 },
-    multiplayer: { type: Boolean, required: true },
     description: { type: String, required: true },
-    coverImage: { type: String } // URL zum Spielcover
+    altersfreigabe: { type: String, required: true },
+    coverImage: { type: String }, // URL zum Spielcover
+    trailerUrl: { type: String }
 });
 
 const Game = mongoose.model("Game", gameSchema);
