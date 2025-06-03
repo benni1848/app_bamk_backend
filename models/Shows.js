@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const showsSchema = new mongoose.Schema({
-    title: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
     genre: { type: [String], required: true },
     seasons: { type: Number, required: true },
     episodes: { type: Number, required: true },
