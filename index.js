@@ -19,18 +19,9 @@ app.listen(PORT, () => {
 });
 
 app.use(cors());
-app.use("/uploads", express.static("public/uploads"));
 app.use(express.json());
 
 app.use(passport.initialize());
-
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });
 
 mongoose
   .connect(DB_URL)
