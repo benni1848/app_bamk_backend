@@ -1,20 +1,25 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const cors = require("cors");
+require("dotenv").config();
+
 
 const movieRoutes = require("./routes/routesMovies"); // Film-Route
 const musicRoutes = require("./routes/routesMusic");  // Musik-Route
 const showRoutes = require("./routes/routesShows");   // Serien-Route
 const gameRoutes = require("./routes/routesGames");   // Spiele-Route
+const authRoutes = require("./routes/auth"); // Auth-Route
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cors());
+app.use("/auth", authRoutes);
 
-// MongoDB Atlas Connection
+//MongoDB Atlas Connection and JWT
 const MONGO_URI = process.env.MONGO_URI;
+const SECRET_KEY = process.env.JWT_SECRET;
 
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
