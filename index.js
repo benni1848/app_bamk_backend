@@ -3,12 +3,14 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const path = require("path");
 const passport = require("passport");
 
 const authController = require("./controllers/authController");
+const gameController = require("./controllers/gameController");
 const movieController = require("./controllers/movieController");
+const showController = require("./controllers/showController");
+const songController = require("./controllers/songController");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -58,4 +60,8 @@ app.get("/movies/:id", (req, res) => {
 
 app.get("/movies", (req, res) => {
   movieController.getAllMovies(req, res);
+});
+
+app.get("/games", (req, res) => {
+  gameController.getAllGames(req, res);
 });
