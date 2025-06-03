@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
 
-const filmSchema = new mongoose.Schema({
+const showSchema = new mongoose.Schema({
   id: String,
+  mediatype: String,
   name: String,
   genre: [String],
   director: String,
-  duration: Number,
+  seasons: Number,
   published: Date,
   imageUrls: [String],
-  trailer: String,
+  trailerUrl: String,
   description: String,
   rating: Number, 
 });
 
-const Film = mongoose.model("Film", filmSchema);
+const Show = mongoose.model("Show", showSchema);
 
-module.exports = Film;
+module.exports = Show;
