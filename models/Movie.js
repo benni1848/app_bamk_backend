@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
-    titel: String,
-    genre: [String],
-    mitwirkende: [String],
-    laufzeit: Number,
-    erscheinungsdatum: String,
-    nutzerwertung_prozent: Number,
-    nutzerwertung_sterne: Number,
-    beschreibung: String,
-    trailer_link: String,
-    altersfreigabe: String
-}, { collection: "movies" });
+  title: { type: String, required: true, unique: true },
+  genre: { type: [String], required: true },
+  director: { type: String, required: true },
+  producer: { type: String },
+  duration: { type: Number, required: true },
+  releaseDate: { type: Date, required: true },
+  rating: { type: Number, min: 0, max: 10 },
+  description: { type: String, required: true },
+  cast: { type: [String] },
+  trailerUrl: { type: String },
+  coverImage: { type: String }
+});
 
 const Movie = mongoose.model("Movie", movieSchema);
-
 module.exports = Movie;
