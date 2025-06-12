@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
-  id: String,
-  name: String,
-  password: String,
-  comments: Number,
+  id: { type: String },
+  name: { type: String },
+  password: { type: String },
+  comments: { type: Number },
 });
 
 userSchema.plugin(passportLocalMongoose);
