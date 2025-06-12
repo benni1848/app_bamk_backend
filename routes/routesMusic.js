@@ -4,7 +4,7 @@ const Music = require("../models/Music");
 const router = express.Router();
 
 // Get All Songs
-router.get("/music", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const songs = await Music.find();
         res.status(200).json(songs);
