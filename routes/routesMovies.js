@@ -61,6 +61,23 @@ router.get("/top10", async (req, res) => {
     }
 });
 
+// Search the FSK
+router.get("/fsk/:altersfreigabe", async (req, res) => {
+    try {
+        const fskRegex = new RegExp(req.params.altersfreigabe, 'i'); // Ausschalten der Case-Sensitivity
+        const fsk = await Movie.find({ altersfreigabe: fskRegex })
+
+        if (!fsk || fsk.length === 0) {
+            return res.status(404).json({ message: "Filme nicht gefunden" });
+        }
+
+        res.status(200).json(fsk);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Filme:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Debug-Log
 console.log("routesMovies.js wurde erfolgreich geladen!");
 
