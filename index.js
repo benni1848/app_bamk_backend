@@ -22,8 +22,8 @@ const MONGO_URI = process.env.MONGO_URI;
 const SECRET_KEY = process.env.JWT_SECRET;
 
 mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    //useNewUrlParser: true,
+    //useUnifiedTopology: true
 })
     .then(() => console.log("MongoDB Atlas verbunden mit der BAMK-Datenbank!"))
     .catch((err) => console.error("Fehler bei MongoDB-Verbindung:", err.message));

@@ -15,18 +15,49 @@ router.get("/", async (req, res) => {
 });
 
 // Search by Title
-router.get("/:title", async (req, res) => {
+router.get("/title/:title", async (req, res) => {
     try {
-        const movie = await Movie.findOne({ title: req.params.title }); 
+        const titleRegex = new RegExp(req.params.title, 'i'); // Ausschalten der Case-Sensitivity
+        const movietitle = await Movie.find({ title: titleRegex }); 
 
-        if (!movie) {
+        if (!movietitle || movietitle.length === 0) {
             return res.status(404).json({ message: "Film nicht gefunden" });
         }
 
-        res.status(200).json(movie);
+        res.status(200).json(movietitle);
     } catch (error) {
         console.error("Fehler beim Abrufen des Films:", error.message);
-        res.status500.json({ message: "Interner Serverfehler" });
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
+// Search by ID
+router.get("/id/:id", async (req, res) => {
+    try {
+        const movieid = await Movie.findOne({ id: req.params.id }); 
+
+        if (!movieid) {
+            return res.status(404).json({ message: "Film nicht gefunden" });
+        }
+
+        res.status(200).json(movieid);
+    } catch (error) {
+        console.error("Fehler beim Abrufen des Films:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
+// Search the Top10
+router.get("/top10", async (req, res) => {
+    try {
+        const top10 = await Movie.find()
+        .sort({ rating: -1 }) // -1 für absteigend (höchster zuerst)
+        .limit(10);
+
+        res.status(200).json(top10);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Filme:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
     }
 });
 
