@@ -1,45 +1,48 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
 
-
-const movieRoutes = require("./routes/routesMovies"); // Film-Route
-const musicRoutes = require("./routes/routesMusic");  // Musik-Route
-const showRoutes = require("./routes/routesShows");   // Serien-Route
-const gameRoutes = require("./routes/routesGames");   // Spiele-Route
-const authRoutes = require("./routes/auth"); // Auth-Route
+const movieRoutes = require("./routes/routesMovies");
+const musicRoutes = require("./routes/routesMusic");
+const showRoutes = require("./routes/routesShows");
+const gameRoutes = require("./routes/routesGames");
+const authRoutes = require("./routes/auth");
 
 const app = express();
-const PORT = 3000;
 
+// Umgebungsvariablen
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST_IP || "localhost";
+const MONGO_URI = process.env.MONGO_URI;
+const SECRET_KEY = process.env.JWT_SECRET;
+
+// Middlewares
 app.use(express.json());
 app.use(cors());
 app.use("/auth", authRoutes);
 
-//MongoDB Atlas Connection and JWT
-const MONGO_URI = process.env.MONGO_URI;
-const SECRET_KEY = process.env.JWT_SECRET;
-
+// MongoDB-Verbindung
 mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-    .then(() => console.log("MongoDB Atlas verbunden mit der BAMK-Datenbank!"))
-    .catch((err) => console.error("Fehler bei MongoDB-Verbindung:", err.message));
+.then(() => console.log("MongoDB verbunden mit BAMK-Datenbank"))
+.catch((err) => console.error("MongoDB-Verbindungsfehler:", err.message));
 
-// Check if Server is Runnung Standart-Route
+// Test-Route
 app.get("/", (req, res) => {
-    res.send("<h1>Server läuft erfolgreich!</h1>");
+  res.send("<h1> Server läuft erfolgreich!</h1>");
 });
 
-// API-Routes
+// API-Routen
 app.use("/movies", movieRoutes);
-app.use("/music", musicRoutes);  
-app.use("/shows", showRoutes);   
-app.use("/games", gameRoutes);   
+app.use("/music", musicRoutes);
+app.use("/shows", showRoutes);
+app.use("/games", gameRoutes);
 
-// Server startt
-app.listen(PORT, () => {
-    console.log(`Server läuft auf http://localhost:${PORT}`);
+// Server-Start
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server läuft auf http://${HOST}:${PORT}`);
 });

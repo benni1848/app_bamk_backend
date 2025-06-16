@@ -1,12 +1,12 @@
 const express = require("express");
-const Series = require("../models/Shows"); // Korrekte Referenz auf das Serien-Modell
+const Series = require("../models/Shows");
 
 const router = express.Router();
 
 // Get All Shows
 router.get("/", async (req, res) => {
     try {
-        const shows = await Series.find(); // Holt alle Serien aus der Datenbank
+        const shows = await Series.find();
         res.status(200).json(shows);
     } catch (error) {
         console.error("Fehler beim Abrufen der Serien:", error.message);
