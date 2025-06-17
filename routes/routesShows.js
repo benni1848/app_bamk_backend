@@ -14,43 +14,18 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Get All Shows (sort by date)
-router.get("/new", async (req, res) => {
-    try {
-        const dateshows = await Series.find()
-        .sort({ releaseDate: -1 });
-        res.status(200).json(dateshows);
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Filme:", error.message);
-        res.status(500).json({ message: "Interner Serverfehler" });
-    }
-});
-
-// Get All Shows (sort by title)
-router.get("/title", async (req, res) => {
-    try {
-        const titleshows = await Series.find()
-        .sort({ title: 1 });
-        res.status(200).json(titleshows);
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Filme:", error.message);
-        res.status(500).json({ message: "Interner Serverfehler" });
-    }
-});
-
 // Search by Title
-router.get("/title/:title", async (req, res) => {
+router.get("/:title", async (req, res) => {
     try {
-        const titleRegex = new RegExp(req.params.title, 'i'); // Ausschalten der Case-Sensitivity
-        const seriestitle = await Series.find({ title: titleRegex }); 
+        const show = await Series.findOne({ title: req.params.title });
 
-        if (!seriestitle || seriestitle.length === 0) {
-            return res.status(404).json({ message: "Film nicht gefunden" });
+        if (!show) {
+            return res.status(404).json({ message: "Serie nicht gefunden" });
         }
 
-        res.status(200).json(seriestitle);
+        res.status(200).json(show);
     } catch (error) {
-        console.error("Fehler beim Abrufen des Films:", error.message);
+        console.error("Fehler beim Abrufen der Serie:", error.message);
         res.status(500).json({ message: "Interner Serverfehler" });
     }
 });
