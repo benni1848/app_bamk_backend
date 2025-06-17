@@ -19,6 +19,7 @@ const HOST = process.env.HOST_IP || "localhost";
 const MONGO_URI = process.env.MONGO_URI;
 const SECRET_KEY = process.env.JWT_SECRET;
 
+// Middlewares
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -28,15 +29,13 @@ app.use("/auth", authRoutes);
 
 // MongoDB-Verbindung
 mongoose.connect(MONGO_URI, {
-    //useNewUrlParser: true,
-    //useUnifiedTopology: true
 })
-    .then(() => console.log("MongoDB verbunden mit BAMK-Datenbank"))
-    .catch((err) => console.error("MongoDB-Verbindungsfehler:", err.message));
+.then(() => console.log("MongoDB verbunden mit BAMK-Datenbank"))
+.catch((err) => console.error("MongoDB-Verbindungsfehler:", err.message));
 
 // Test-Route
 app.get("/", (req, res) => {
-    res.send("<h1>Server läuft erfolgreich!</h1>");
+  res.send("<h1> Server läuft erfolgreich!</h1>");
 });
 
 // API-Routen
@@ -44,6 +43,7 @@ app.use("/movies", movieRoutes);
 app.use("/music", musicRoutes);
 app.use("/shows", showRoutes);
 app.use("/games", gameRoutes);
+
 app.use("/comments", commentRoutes);
 
 // Server-Start

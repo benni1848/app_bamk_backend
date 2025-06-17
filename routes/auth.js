@@ -40,11 +40,10 @@ router.post("/register", async (req, res) => {
 
         console.log("Neuer Nutzer erfolgreich gespeichert!");
         res.status(201).json({ message: "Registrierung erfolgreich!" });
-
     } catch (error) {
         console.error("Fehler bei der Registrierung:", error.message);
         res.status(500).json({ message: "Serverfehler" });
-        }
+    }
 });
 
 // Login-Route
@@ -74,7 +73,8 @@ router.post("/login", async (req, res) => {
         // Token with Expiration-Date
         const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1h" });
 
-        // Show Expiration Datw in Console
+        // Show Expiration Date in Console
+
         const decoded = jwt.decode(token);
         const expiresAtEU = formatDateEU(decoded.exp); // Convert to EU-Format
 
