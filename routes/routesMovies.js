@@ -184,6 +184,23 @@ router.get("/genre/:genre", async (req, res) => {
     }
 });
 
+// Search by cast
+router.get("/cast/:cast", async (req, res) => {
+    try {
+        const castRegex = new RegExp(req.params.cast, 'i'); // Ausschalten der Case-Sensitivity
+        const moviecast = await Movie.find({ cast: castRegex }); 
+
+        if (!moviecast || moviecast.length === 0) {
+            return res.status(404).json({ message: "Film nicht gefunden" });
+        }
+
+        res.status(200).json(moviecast);
+    } catch (error) {
+        console.error("Fehler beim Abrufen des Films:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Debug-Log
 console.log("routesMovies.js wurde erfolgreich geladen!");
 

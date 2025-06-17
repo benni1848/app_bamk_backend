@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Kommentar abgeben</title>
+</head>
+<body>
+    <h1>Neuen Kommentar schreiben</h1>
+
+    <form action="/comments/music/comment/post" method="POST">
+        <label for="title">Titel:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="inhalt">Kommentar:</label><br>
+        <textarea id="inhalt" name="inhalt" rows="5" required></textarea><br><br>
+
+        <label for="id">Film/Medien-ID:</label><br>
+        <input type="text" id="id" name="id" required><br><br>
+
+        <button type="submit">Absenden</button>
+    </form>
+</body>
+</html>
