@@ -10,6 +10,8 @@ const showRoutes = require("./routes/routesShows");
 const gameRoutes = require("./routes/routesGames");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/routesComments");
+const ticketRoutes = require("./routes/routesTickets");
+
 
 const app = express();
 
@@ -45,6 +47,7 @@ app.use("/shows", showRoutes);
 app.use("/games", gameRoutes);
 
 app.use("/comments", commentRoutes);
+app.use("/tickets", ticketRoutes);
 
 // Server-Start
 app.listen(PORT, "0.0.0.0", () => {

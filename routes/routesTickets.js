@@ -5,6 +5,7 @@ router.post("/", (req, res) => {
   const { userName, message } = req.body;
 
   if (!userName || !message) {
+    console.log(req)
     return res.status(400).json({ error: "Benutzername und Nachricht sind erforderlich" });
   }
 
