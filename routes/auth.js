@@ -11,12 +11,12 @@ const SECRET_KEY = process.env.JWT_SECRET;
 function formatDateEU(timestamp) {
     const date = new Date(timestamp * 1000);
     return date.toLocaleString("de-DE", { 
-        day: "2-digit", 
-        month: "2-digit", 
-        year: "numeric", 
-        hour: "2-digit", 
-        minute: "2-digit", 
-        second: "2-digit" 
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
     });
 }
 
@@ -73,7 +73,8 @@ router.post("/login", async (req, res) => {
         // Token with Expiration-Date
         const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1h" });
 
-        //Show Expiration Datw in Console
+        // Show Expiration Date in Console
+
         const decoded = jwt.decode(token);
         const expiresAtEU = formatDateEU(decoded.exp); // Convert to EU-Format
 
