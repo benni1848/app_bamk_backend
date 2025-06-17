@@ -11,9 +11,7 @@ const musicSchema = new mongoose.Schema({
     explicit: { type: Boolean },
     releaseDate: { type: Date },
     duration: { type: Number, required: true },
-    coverImage: { type: String },
-    likes: { type: Number },
-    dislikes: { type: Number }
+    coverImage: { type: String }
 }, { collection: "music" });
 
 const Music = mongoose.model("Music", musicSchema);
