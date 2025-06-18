@@ -10,6 +10,7 @@ const showRoutes = require("./routes/routesShows");
 const gameRoutes = require("./routes/routesGames");
 const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/routesComments");
+const commenttickets = require("./routes/routesTickets");
 
 const app = express();
 
@@ -43,7 +44,7 @@ app.use("/movies", movieRoutes);
 app.use("/music", musicRoutes);
 app.use("/shows", showRoutes);
 app.use("/games", gameRoutes);
-
+app.use("/tickets", commenttickets);
 app.use("/comments", commentRoutes);
 
 // Server-Start

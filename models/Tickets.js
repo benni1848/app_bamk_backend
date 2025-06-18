@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ticketSchema = new mongoose.Schema({
-    user: String,
+    userName: String,
     message: String,
     status:{type: String, default: "offen"},
     timestamp:{type: Date, default: Date.now}

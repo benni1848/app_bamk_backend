@@ -86,5 +86,7 @@ router.post("/login", async (req, res) => {
         res.status(500).json({ message: "Serverfehler!", error });
     }
 });
+// Debug-Log
+console.log("auth.js wurde erfolgreich geladen!");
 
 module.exports = router;
