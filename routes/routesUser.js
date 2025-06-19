@@ -29,6 +29,22 @@ router.get("/:username", async (req, res) => {
     }
 });
 
+// Search by UserID
+router.get("/id/:id", async (req, res) => {
+    try {
+        const userid = await User.findOne({ id: req.params.id }); 
+
+        if (!userid) {
+            return res.status(404).json({ message: "User nicht gefunden" });
+        }
+
+        res.status(200).json(userid);
+    } catch (error) {
+        console.error("Fehler beim Abrufen des Users:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Debug-Log
 console.log("routesUser.js wurde erfolgreich geladen!");
 
