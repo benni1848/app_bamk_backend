@@ -4,7 +4,7 @@ require("dotenv").config();
 const User = require("./models/User"); // Ensureing Correct User Model Import
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_DB_URI, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
