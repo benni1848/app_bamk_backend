@@ -9,8 +9,9 @@ const musicRoutes = require("./routes/routesMusic");
 const showRoutes = require("./routes/routesShows");
 const gameRoutes = require("./routes/routesGames");
 const authRoutes = require("./routes/auth");
-const commentRoutes = require("./routes/routesComments");
+const commentRoutes = require("./routes/routesComments.js");
 const commenttickets = require("./routes/routesTickets");
+const userRoutes = require("./routes/routesUser.js");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/shows", showRoutes);
 app.use("/games", gameRoutes);
 app.use("/tickets", commenttickets);
 app.use("/comments", commentRoutes);
+app.use("/users", userRoutes);
 
 // Server-Start
 app.listen(PORT, "0.0.0.0", () => {
