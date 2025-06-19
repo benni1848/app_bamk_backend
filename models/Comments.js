@@ -6,7 +6,8 @@ const commentSchema = new mongoose.Schema({
   erstelltAm: { type: Date, default: Date.now },
   username: { type: String },
   mediatype: { type: String },
-  id: { type: String }
+  id: { type: String },
+  rating: { type: String },
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

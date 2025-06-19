@@ -1,5 +1,5 @@
 const express = require("express");
-const Comment = require("../models/Comments");
+const Comment = require("../models/Comments.js");
 
 const router = express.Router();
 
@@ -7,6 +7,22 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const comments = await Comment.find();
+        res.status(200).json(comments);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Kommentare:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
+// Search Comment by Username
+router.get("/:username", async (req, res) => {
+    try {
+        const comments = await Comment.find({ username: req.params.username }); 
+
+        if (!comments) {
+            return res.status(404).json({ message: "Kommentare nicht gefunden" });
+        }
+
         res.status(200).json(comments);
     } catch (error) {
         console.error("Fehler beim Abrufen der Kommentare:", error.message);
