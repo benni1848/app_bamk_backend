@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Bewertung abgeben</title>
+</head>
+<body>
+  <h1>Gib eine Bewertung ab!</h1>
+
+  <form action="/likes/post" method="POST">
+
+    <label for="username">Benutzername:</label><br>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="id">Film/Medien-ID:</label><br>
+    <input type="text" id="id" name="id" required><br><br>
+
+    <label>
+      <input type="radio" name="vote" value="1" required>
+      👍 Like
+    </label><br>
+
+    <label>
+      <input type="radio" name="vote" value="-1">
+      👎 Dislike
+    </label><br>
+
+    <label>
+      <input type="radio" name="vote" value="0">
+      ❌ Entfernen
+    </label><br><br>
+
+    <button type="submit">Absenden</button>
+  </form>
+</body>
+</html>

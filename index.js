@@ -12,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/routesComments.js");
 const commenttickets = require("./routes/routesTickets");
 const userRoutes = require("./routes/routesUser.js");
+const likeRoutes = require("./routes/routesLikes.js");
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/games", gameRoutes);
 app.use("/tickets", commenttickets);
 app.use("/comments", commentRoutes);
 app.use("/users", userRoutes);
+app.use("/likes", likeRoutes);
 
 // Server-Start
 app.listen(PORT, "0.0.0.0", () => {

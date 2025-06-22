@@ -7,7 +7,11 @@
 <body>
     <h1>Neuen Kommentar schreiben</h1>
 
-    <form action="/comments/movies/comment/post" method="POST">
+    <form action="/comments/movies" method="POST">
+
+        <label for="username">Benutzername:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
         <label for="title">Titel:</label><br>
         <input type="text" id="title" name="title" required><br><br>
 
@@ -16,6 +20,9 @@
 
         <label for="id">Film/Medien-ID:</label><br>
         <input type="text" id="id" name="id" required><br><br>
+
+        <label for="rating">Bewertung:</label><br>
+        <input type="number" id="rating" name="rating" min="1" max="10" required><br><br>
 
         <button type="submit">Absenden</button>
     </form>
