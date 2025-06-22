@@ -48,18 +48,19 @@ router.get('/post/new', (req, res) => {
     res.render('formmusiclikes');
 });
 
-// Hilfsfunktion: Zählt Likes/Dislikes für einen Song und aktualisiert das Musik-Dokument
-async function recalculateMusicVotes(songId) {
-    const likeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: 1 });
-    const dislikeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: -1 });
-    await Music.updateOne(
-        { id: songId },
-        { $set: { likes: likeCount, dislikes: dislikeCount } }
-    );
-}
-
 // Like oder Dislike posten
 router.post("/post", async (req, res) => {
+
+    
+    async function recalculateMusicVotes(songId) {
+        const likeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: 1 });
+        const dislikeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: -1 });
+        await Music.updateOne(
+            { id: songId },
+            { $set: { likes: likeCount, dislikes: dislikeCount } }
+        );
+    }
+
     const { username, id, vote } = req.body;
     const numericVote = Number(vote);
 
@@ -69,7 +70,7 @@ router.post("/post", async (req, res) => {
 
     try {
         const existing = await Like.findOne({ username, id, mediatype: "3" });
-        const musicDoc = await Music.findOne({ id });
+        const musicDoc = await Music.findOne({ id: id });
         if (!musicDoc) return res.status(404).json({ message: "Song nicht gefunden" });
 
         if (numericVote === 0) {
