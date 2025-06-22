@@ -69,7 +69,7 @@ router.post("/games", async (req,res) => {
             title,
             inhalt,
             erstelltAm: Date.now(), // Optional: aktualisiere das Datum
-            rating
+            rating: Number(rating)
         },
         { new: true, upsert: true } // new = Rückgabe des neuen Eintrags, upsert = erstellen wenn nicht vorhanden
         );
@@ -110,7 +110,7 @@ router.post("/movies", async (req,res) => {
             title,
             inhalt,
             erstelltAm: Date.now(), // Optional: aktualisiere das Datum
-            rating
+            rating: Number(rating)
         },
         { new: true, upsert: true } // new = Rückgabe des neuen Eintrags, upsert = erstellen wenn nicht vorhanden
         );
@@ -151,7 +151,7 @@ router.post("/music", async (req,res) => {
             title,
             inhalt,
             erstelltAm: Date.now(), // Optional: aktualisiere das Datum
-            rating
+            rating: Number(rating)
             
         },
         { new: true, upsert: true } // new = Rückgabe des neuen Eintrags, upsert = erstellen wenn nicht vorhanden
@@ -193,7 +193,7 @@ router.post("/shows", async (req,res) => {
             title,
             inhalt,
             erstelltAm: Date.now(), // Optional: aktualisiere das Datum
-            rating
+            rating: Number(rating)
         },
         { new: true, upsert: true } // new = Rückgabe des neuen Eintrags, upsert = erstellen wenn nicht vorhanden
         );

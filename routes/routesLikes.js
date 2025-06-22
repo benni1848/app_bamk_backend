@@ -48,6 +48,16 @@ router.get('/post/new', (req, res) => {
     res.render('formmusiclikes');
 });
 
+// Hilfsfunktion: Zählt Likes/Dislikes für einen Song und aktualisiert das Musik-Dokument
+async function recalculateMusicVotes(songId) {
+    const likeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: 1 });
+    const dislikeCount = await Like.countDocuments({ id: songId, mediatype: "3", vote: -1 });
+    await Music.updateOne(
+        { id: songId },
+        { $set: { likes: likeCount, dislikes: dislikeCount } }
+    );
+}
+
 // Like oder Dislike posten
 router.post("/post", async (req, res) => {
     const { username, id, vote } = req.body;
@@ -58,40 +68,28 @@ router.post("/post", async (req, res) => {
     }
 
     try {
-        // mediatype: "3" wird hier fest gesetzt
         const existing = await Like.findOne({ username, id, mediatype: "3" });
-
         const musicDoc = await Music.findOne({ id });
         if (!musicDoc) return res.status(404).json({ message: "Song nicht gefunden" });
 
-        const updateCounts = (oldVote, newVote) => {
-            if (oldVote === 1) musicDoc.likes = Math.max(0, (musicDoc.likes || 0) - 1);
-            if (oldVote === -1) musicDoc.dislikes = Math.max(0, (musicDoc.dislikes || 0) - 1);
-            if (newVote === 1) musicDoc.likes = (musicDoc.likes || 0) + 1;
-            if (newVote === -1) musicDoc.dislikes = (musicDoc.dislikes || 0) + 1;
-        };
-
         if (numericVote === 0) {
             if (existing) {
-                updateCounts(existing.vote, 0);
                 await existing.deleteOne();
-                await musicDoc.save();
             }
+            await recalculateMusicVotes(id);
             return res.status(200).json({ message: "Like/Dislike entfernt" });
         }
 
         if (existing) {
             if (existing.vote !== numericVote) {
-                updateCounts(existing.vote, numericVote);
                 existing.vote = numericVote;
                 await existing.save();
-                await musicDoc.save();
             }
+            await recalculateMusicVotes(id);
             return res.status(200).json({ message: "Vote aktualisiert" });
         } else {
-            updateCounts(0, numericVote);
             await Like.create({ username, id, mediatype: "3", vote: numericVote });
-            await musicDoc.save();
+            await recalculateMusicVotes(id);
             return res.status(201).json({ message: "Vote gespeichert" });
         }
 
