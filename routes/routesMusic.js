@@ -13,6 +13,22 @@ router.get("/", async (req, res) => {
         res.status(500).json({ message: "Interner Serverfehler" });
     }
 });
+
+// Search the Top10
+router.get("/top10", async (req, res) => {
+    try {
+        const top10 = await Music.find()
+        .sort({ likes: -1 })    // Absteigend sortieren
+        .limit(10);
+        
+
+        res.status(200).json(top10);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Songs:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Search by Title
 router.get("/:title", async (req, res) => {
     try {
@@ -28,6 +44,8 @@ router.get("/:title", async (req, res) => {
         res.status(500).json({ message: "Interner Serverfehler" });
     }
 });
+
+
 
 // Debug-Log
 console.log("musicRoutes.js wurde erfolgreich geladen!");
