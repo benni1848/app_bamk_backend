@@ -14,6 +14,20 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Search the Top10
+router.get("/last10", async (req, res) => {
+    try {
+        const last10 = await Comment.find()
+        .sort({ erstelltAm: -1 }) // -1 für absteigend
+        .limit(10);
+
+        res.status(200).json(last10);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der letzten 10 Kommentare:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Search Comment by Username
 router.get("/:username", async (req, res) => {
     try {

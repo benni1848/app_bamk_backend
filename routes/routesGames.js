@@ -14,6 +14,20 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Search the Top10
+router.get("/top10", async (req, res) => {
+    try {
+        const top10 = await Game.find()
+        .sort({ rating: -1 }) // -1 für absteigend
+        .limit(10);
+
+        res.status(200).json(top10);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Spiele:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
 // Search by Title
 router.get("/:title", async (req, res) => {
     try {
