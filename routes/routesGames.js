@@ -14,18 +14,44 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Search by Title
-router.get("/:title", async (req, res) => {
+router.get("/top10", async (req, res) => {
     try {
-        const game = await Game.findOne({ title: req.params.title }); 
+        const top10 = await Game.find()
+        .sort({ rating: -1 })    // Absteigend sortieren
+        .limit(10);
+        
+        res.status(200).json(top10);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Spiele:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
 
-        if (!game) {
-            return res.status(404).json({ message: "Spiel nicht gefunden" });
+// Get All Songs (sort by title)
+router.get("/title", async (req, res) => {
+    try {
+        const titlegames = await Game.find()
+        .sort({ title: 1 });
+        res.status(200).json(titlegames);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Spiele:", error.message);
+        res.status(500).json({ message: "Interner Serverfehler" });
+    }
+});
+
+// Search by Title
+router.get("/title/:title", async (req, res) => {
+    try {
+        const titleRegex = new RegExp(req.params.title, 'i'); // Ausschalten der Case-Sensitivity
+        const gametitle = await Game.find({ title: titleRegex }); 
+
+        if (!gametitle || gametitle.length === 0) {
+            return res.status(404).json({ message: "Film nicht gefunden" });
         }
 
-        res.status(200).json(game);
+        res.status(200).json(gametitle);
     } catch (error) {
-        console.error("Fehler beim Abrufen des Spiels:", error.message);
+        console.error("Fehler beim Abrufen des Films:", error.message);
         res.status(500).json({ message: "Interner Serverfehler" });
     }
 });
