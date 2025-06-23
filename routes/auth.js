@@ -71,7 +71,8 @@ router.post("/login", async (req, res) => {
         }
 
         // Token with Expiration-Date
-        const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "24h" });
+        
 
         // Show Expiration Date in Console
 

@@ -75,6 +75,7 @@ router.get('/games/comment', (req, res) => {
     res.render('formgame');
 });
 
+
 // Kommentar posten (Spiel)
 router.post("/games", async (req,res) => {
     try {
