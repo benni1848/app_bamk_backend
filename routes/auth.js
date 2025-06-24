@@ -9,7 +9,7 @@ const SECRET_KEY = process.env.JWT_SECRET;
 
 // Token-Generierung mit Ablaufzeit (24h)
 const generateToken = (id) => {
-  return jwt.sign({ id }, SECRET_KEY, { expiresIn: "24h" });
+  return jwt.sign({ id }, SECRET_KEY, { expiresIn: "2h" });
 };
 
 // Formatierungsfunktion für EU-Zeiten

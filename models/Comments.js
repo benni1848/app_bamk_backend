@@ -7,9 +7,8 @@ const commentSchema = new mongoose.Schema({
   username: { type: String },
   mediatype: { type: String },
   id: { type: String },
-  //rating: { type: Number, min: 1, max: 10 },
-  rating: { type: String },
-});
+  rating: { type: Number, min: 1, max: 10 },
+  });
 
 const Comment = mongoose.model("Comment", commentSchema);
 module.exports = Comment;
